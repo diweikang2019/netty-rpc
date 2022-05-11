@@ -28,6 +28,19 @@
     </modules>
 
     <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kang</groupId>
+                <artifactId>netty-rpc-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kang</groupId>
+                <artifactId>netty-rpc-protocol</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 </project>
