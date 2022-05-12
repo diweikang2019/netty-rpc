@@ -1,9 +1,13 @@
-# Getting Started
+## 说明
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### 服务提供者
+1. 实现接口
+2. 启动netty服务端
+3. 收到请求后找到对应的实现，通过反射调用
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.7/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.6.7/maven-plugin/reference/html/#build-image)
+### 服务消费者
+1. 创建代理对象
+2. 在代理对象中启动netty客户端，发送请求消息
 
+### 
+![流程图](flow_chart.png)
