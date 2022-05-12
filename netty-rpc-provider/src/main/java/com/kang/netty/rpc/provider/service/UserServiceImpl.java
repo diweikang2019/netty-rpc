@@ -15,6 +15,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String saveUser(String name) {
         log.info("begin save user:{}", name);
-        return "save User success: " + name;
+        return "save user success: " + name;
     }
 }

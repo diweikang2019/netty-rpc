@@ -14,14 +14,12 @@ import java.io.ObjectOutputStream;
  */
 public class JavaSerializer implements Serializer {
 
-
     @Override
     public <T> byte[] serialize(T obj) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(bos);
-            oos.writeObject(obj); //序列化
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(obj);
             return bos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,7 +30,8 @@ public class JavaSerializer implements Serializer {
     @Override
     public <T> T deserialize(byte[] data, Class<T> clazz) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            ObjectInputStream ois = new ObjectInputStream(bis);
             return (T) ois.readObject();
         } catch (IOException e) {
             e.printStackTrace();

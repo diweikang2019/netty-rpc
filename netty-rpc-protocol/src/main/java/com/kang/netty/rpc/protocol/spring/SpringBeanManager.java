@@ -19,7 +19,7 @@ public class SpringBeanManager implements ApplicationContextAware {
         SpringBeanManager.applicationContext = applicationContext;
     }
 
-    public static <T> T getBean(Class<T> clzz) {
-        return applicationContext.getBean(clzz);
+    public static <T> T getBean(Class<T> clazz) {
+        return applicationContext.getBean(clazz);
     }
 }

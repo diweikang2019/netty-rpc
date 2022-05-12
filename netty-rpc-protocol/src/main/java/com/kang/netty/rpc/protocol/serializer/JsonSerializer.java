@@ -8,6 +8,7 @@ import com.kang.netty.rpc.protocol.constants.SerialType;
  * @date 2022/5/11 23:31
  */
 public class JsonSerializer implements Serializer {
+
     @Override
     public <T> byte[] serialize(T obj) {
         return JSON.toJSONString(obj).getBytes();

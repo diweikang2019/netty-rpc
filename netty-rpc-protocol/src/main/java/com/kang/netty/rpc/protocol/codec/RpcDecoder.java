@@ -11,6 +11,7 @@ import com.kang.netty.rpc.protocol.serializer.SerializerManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -18,11 +19,12 @@ import java.util.List;
  * @author weikang.di
  * @date 2022/5/11 23:25
  */
+@Slf4j
 public class RpcDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        System.out.println("========begin RpcDecoder==========");
+        log.info("========begin RpcDecoder==========");
 
         if (in.readableBytes() < RpcConstant.HEAD_TOTAL_LEN) {
             return;

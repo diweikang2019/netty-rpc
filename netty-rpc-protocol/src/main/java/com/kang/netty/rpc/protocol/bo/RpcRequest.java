@@ -1,11 +1,14 @@
 package com.kang.netty.rpc.protocol.bo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * @author weikang.di
  * @date 2022/5/11 23:07
  */
+@Data
 public class RpcRequest implements Serializable {
 
     /**
@@ -27,36 +30,4 @@ public class RpcRequest implements Serializable {
      * 参数类型
      */
     private Class<?>[] parameterTypes;
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public Object[] getParams() {
-        return params;
-    }
-
-    public void setParams(Object[] params) {
-        this.params = params;
-    }
-
-    public Class<?>[] getParameterTypes() {
-        return parameterTypes;
-    }
-
-    public void setParameterTypes(Class<?>[] parameterTypes) {
-        this.parameterTypes = parameterTypes;
-    }
 }

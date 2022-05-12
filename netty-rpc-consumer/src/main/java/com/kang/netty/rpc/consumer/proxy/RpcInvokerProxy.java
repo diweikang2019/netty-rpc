@@ -22,11 +22,12 @@ import java.lang.reflect.Method;
  * @date 2022/5/12 0:15
  */
 @Slf4j
-public class RpcInovkerProxy implements InvocationHandler {
+public class RpcInvokerProxy implements InvocationHandler {
+
     private String host;
     private int port;
 
-    public RpcInovkerProxy(String host, int port) {
+    public RpcInvokerProxy(String host, int port) {
         this.host = host;
         this.port = port;
     }
@@ -34,19 +35,22 @@ public class RpcInovkerProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log.info("begin invoke target server");
-        RpcProtocol<RpcRequest> reqProtocol = new RpcProtocol<>();
+
         long requestId = RequestHolder.REQUEST_ID.incrementAndGet();
         Header header = new Header(RpcConstant.MAGIC, SerialType.JSON_SERIAL.code(), ReqType.REQUEST.code(), requestId, 0);
-        reqProtocol.setHeader(header);
+
         RpcRequest request = new RpcRequest();
         request.setClassName(method.getDeclaringClass().getName());
         request.setMethodName(method.getName());
         request.setParameterTypes(method.getParameterTypes());
         request.setParams(args);
+
+        RpcProtocol<RpcRequest> reqProtocol = new RpcProtocol<>();
+        reqProtocol.setHeader(header);
         reqProtocol.setBody(request);
 
         NettyClient nettyClient = new NettyClient(host, port);
-        RpcFuture<RpcResponse> future = new RpcFuture<>(new DefaultPromise<RpcResponse>(new DefaultEventLoop()));
+        RpcFuture<RpcResponse> future = new RpcFuture<>(new DefaultPromise<>(new DefaultEventLoop()));
         RequestHolder.REQUEST_MAP.put(requestId, future);
         nettyClient.sendRequest(reqProtocol);
         return future.getPromise().get().getData();

@@ -8,20 +8,20 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SerializerManager {
 
-    private final static ConcurrentHashMap<Byte, Serializer> serializer = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<Byte, Serializer> SERIALIZER = new ConcurrentHashMap<>();
 
     static {
         Serializer json = new JsonSerializer();
         Serializer java = new JavaSerializer();
-        serializer.put(json.getType(), json);
-        serializer.put(java.getType(), java);
+        SERIALIZER.put(json.getType(), json);
+        SERIALIZER.put(java.getType(), java);
     }
 
     public static Serializer getSerializer(byte key) {
-        Serializer iSerializer = serializer.get(key);
+        Serializer serializer = SERIALIZER.get(key);
         if (serializer == null) {
             return new JavaSerializer();
         }
-        return iSerializer;
+        return serializer;
     }
 }

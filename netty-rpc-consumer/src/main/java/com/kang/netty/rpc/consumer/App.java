@@ -12,6 +12,6 @@ public class App {
     public static void main(String[] args) {
         RpcClientProxy rcp = new RpcClientProxy();
         UserService userService = rcp.clientProxy(UserService.class, "127.0.0.1", 8888);
-        System.out.println(userService.saveUser("Mic"));
+        System.out.println(userService.saveUser("diweikang"));
     }
 }

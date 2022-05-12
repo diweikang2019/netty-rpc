@@ -6,11 +6,13 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author weikang.di
  * @date 2022/5/12 0:02
  */
+@Slf4j
 public class NettyServer {
 
     private String serverAddress;
@@ -22,7 +24,7 @@ public class NettyServer {
     }
 
     public void startNettyServer() {
-        System.out.println("Begin Start Netty Server");
+        log.info("Begin Start Netty Server");
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
 
@@ -32,7 +34,7 @@ public class NettyServer {
                 .childHandler(new RpcServerInitializer());
         try {
             ChannelFuture future = bootstrap.bind(this.serverAddress, this.serverPort).sync();
-            System.out.println("Server Started Success On Port " + this.serverPort);
+            log.info("Server Started Success On Port {}", this.serverPort);
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

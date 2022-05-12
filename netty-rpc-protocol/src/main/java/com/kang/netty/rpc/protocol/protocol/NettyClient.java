@@ -8,16 +8,14 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author weikang.di
  * @date 2022/5/12 0:04
  */
+@Slf4j
 public class NettyClient {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NettyClient.class);
 
     private final Bootstrap bootstrap;
     private final EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
@@ -25,7 +23,7 @@ public class NettyClient {
     private int servicePort;
 
     public NettyClient(String serviceAddress, int servicePort) {
-        LOGGER.info("Begin Init Netty Client, {}, {}", serviceAddress, servicePort);
+        log.info("Begin Init Netty Client, {}, {}", serviceAddress, servicePort);
         bootstrap = new Bootstrap();
 
         bootstrap.group(eventLoopGroup)
@@ -40,14 +38,14 @@ public class NettyClient {
         final ChannelFuture future = bootstrap.connect(this.serviceAddress, this.servicePort).sync();
         future.addListener(listener -> {
             if (future.isSuccess()) {
-                LOGGER.info("connect rpc server {} success.", this.serviceAddress);
+                log.info("Connect rpc server {} success.", this.serviceAddress);
             } else {
-                LOGGER.info("connect rpc server {} failed.", this.serviceAddress);
+                log.info("Connect rpc server {} failed.", this.serviceAddress);
                 future.cause().printStackTrace();
                 eventLoopGroup.shutdownGracefully();
             }
         });
-        LOGGER.info("begin transfer data");
+        log.info("Begin transfer data");
         future.channel().writeAndFlush(protocol);
     }
 }
