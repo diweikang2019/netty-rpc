@@ -18,12 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 public class NettyClient {
 
     private final Bootstrap bootstrap;
-    private final EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+    private final EventLoopGroup eventLoopGroup;
     private String serviceAddress;
     private int servicePort;
 
     public NettyClient(String serviceAddress, int servicePort) {
         log.info("Begin Init Netty Client, {}, {}", serviceAddress, servicePort);
+        eventLoopGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
 
         bootstrap.group(eventLoopGroup)
