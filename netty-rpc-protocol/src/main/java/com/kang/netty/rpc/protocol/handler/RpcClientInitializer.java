@@ -15,11 +15,11 @@ public class RpcClientInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ch.pipeline().addLast(
-                        new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,
-                                12,
-                                4,
-                                0, 0))
+        ch.pipeline()
+                .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,
+                        12,
+                        4,
+                        0, 0))
                 .addLast(new LoggingHandler())
                 .addLast(new RpcEncoder())
                 .addLast(new RpcDecoder())
